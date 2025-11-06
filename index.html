@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerak Melingkar - Belajar Fisika Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
+
+    <!-- START SCREEN:-->
+<div id="welcomeScreen" class="fixed inset-0 bg-gradient-to-br from-blue-700 via-purple-700 to-pink-600 flex items-center justify-center z-50">
+    <div class="text-center text-white max-w-md px-6">
+        <h1 class="text-4xl font-bold mb-4">Gerak Melingkar</h1>
+        <p class="mb-6">Belajar fisika interaktif — simulasi, game, kuis, dan eksperimen.</p>
+        <button id="startButton" onclick="startApp()"
+            class="bg-white text-purple-700 font-semibold px-8 py-3 rounded-lg shadow-lg hover:scale-105 transform transition">
+            Mulai
+        </button>
+        <p class="text-sm opacity-80 mt-4">Klik "Mulai" untuk memasuki aplikasi</p>
+    </div>
+</div>
+<!-- ...existing code... -->
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">GM</span>
+                    </div>
+                    <h1
+                        class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        Gerak Melingkar
+                    </h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <button onclick="showSection('home')"
+                        class="nav-item px-4 py-2 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200">Beranda</button>
+                    <button onclick="showSection('materi')"
+                        class="nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Materi</button>
+                    <button onclick="showSection('simulasi')"
+                        class="nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Simulasi</button>
+                    <button onclick="showSection('game')"
+                        class="nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Game</button>
+                    <button onclick="showSection('kuis')"
+                        class="nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Kuis</button>
+                    <button onclick="showSection('eksperimen')"
+                        class="nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Eksperimen</button>
+                    <button onclick="showSection('tentang')"
+                        class="nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">Tentang</button>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button onclick="showSection('home')"
+                    class="block w-full text-left px-3 py-2 text-blue-700 bg-blue-50 rounded-md">Beranda</button>
+                <button onclick="showSection('materi')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Materi</button>
+                <button onclick="showSection('simulasi')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Simulasi</button>
+                <button onclick="showSection('game')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Game</button>
+                <button onclick="showSection('kuis')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Kuis</button>
+                <button onclick="showSection('eksperimen')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Eksperimen</button>
+                <button onclick="showSection('tentang')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Tentang</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="orbit-animation mb-8">
+                <div class="orbit-path"></div>
+                <div class="orbit-object"></div>
+                <div class="orbit-center"></div>
+            </div>
+
+            <h1
+                class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
+                Belajar Gerak Melingkar
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Itu Mudah dan Seru! Jelajahi dunia fisika dengan simulasi interaktif, game edukatif, dan eksperimen
+                virtual.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-12">
+                <button onclick="showSection('materi')"
+                    class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <div class="w-12 h-12 bg-blue-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Materi</h3>
+                </button>
+
+                <button onclick="showSection('simulasi')"
+                    class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <div class="w-12 h-12 bg-green-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Simulasi</h3>
+                </button>
+
+                <button onclick="showSection('game')"
+                    class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <div class="w-12 h-12 bg-purple-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Game</h3>
+                </button>
+                <!--bg kuis-->
+                <button onclick="showSection('kuis')"
+                    class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <!--gambar kuis-->
+                    <div class="w-12 h-12 bg-red-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Kuis</h3>
+                </button>
+
+                <button onclick="showSection('eksperimen')"
+                    class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <div class="w-12 h-12 bg-yellow-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Eksperimen</h3>
+                </button>
+
+                <button onclick="showSection('tentang')"
+                    class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
+                    <div class="w-12 h-12 bg-indigo-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-gray-800">Tentang</h3>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materi Section -->
+    <section id="materi" class="section-hidden min-h-screen py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Materi Pembelajaran
+            </h2>
+
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap justify-center mb-8 space-x-2">
+                <button onclick="showTab('konsep')" id="tab-konsep"
+                    class="tab-button active px-6 py-3 rounded-lg bg-blue-500 text-white font-semibold">
+                    Konsep Dasar
+                </button>
+                <button onclick="showTab('rumus')" id="tab-rumus"
+                    class="tab-button px-6 py-3 rounded-lg bg-gray-200 text-gray-700 font-semibold">
+                    Rumus & Formula
+                </button>
+                <button onclick="showTab('contoh')" id="tab-contoh"
+                    class="tab-button px-6 py-3 rounded-lg bg-gray-200 text-gray-700 font-semibold">
+                    Contoh Soal
+                </button>
+            </div>
+
+            <!-- Konsep Dasar Tab -->
+            <div id="konsep-content" class="tab-content">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="formula-card p-6 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-600">Definisi Gerak Melingkar</h3>
+                        <p class="text-gray-700 mb-4">
+                            Gerak melingkar adalah gerak suatu benda yang lintasannya berbentuk lingkaran.
+                            Benda bergerak mengelilingi suatu titik tetap dengan jari-jari konstan.
+                        </p>
+                        <div class="interactive-icon bg-blue-100 p-4 rounded-lg cursor-pointer hover:bg-blue-200 transition-colors"
+                            onclick="showDefinition()">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4c1dc286-312d-479a-91ec-f10f19a9b4d7.png"
+                                alt="Diagram showing a ball attached to a string moving in a perfect circle around a central point, with arrows indicating velocity direction and centripetal force"
+                                class="w-full rounded-lg mb-2" />
+                            <p class="text-sm text-blue-600 text-center">Klik untuk penjelasan detail</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="formula-card p-6 rounded-xl">
+                            <h4 class="text-xl font-semibold mb-3 text-green-600">Contoh dalam Kehidupan Sehari-hari
+                            </h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="interactive-icon text-center p-3 bg-green-50 rounded-lg"
+                                    onclick="showExample('roda')">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f2122394-2b21-4415-989c-707b55c42b8c.png"
+                                        alt="Car wheel rotating on road surface showing circular motion of wheel points"
+                                        class="w-full rounded-lg mb-2" />
+                                    <p class="text-sm font-medium">Roda Kendaraan</p>
+                                </div>
+                                <div class="interactive-icon text-center p-3 bg-green-50 rounded-lg"
+                                    onclick="showExample('kipas')">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df546d85-ac28-46e9-b530-ff397d7a5b88.png"
+                                        alt="Electric fan with blades rotating in circular motion with motion lines showing air flow"
+                                        class="w-full rounded-lg mb-2" />
+                                    <p class="text-sm font-medium">Kipas Angin</p>
+                                </div>
+                                <div class="interactive-icon text-center p-3 bg-green-50 rounded-lg"
+                                    onclick="showExample('satelit')">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/83c40bb4-1c1d-4f40-8f82-3ab985294e80.png"
+                                        alt="Satellite orbiting Earth in elliptical path with communication signals and solar panels visible"
+                                        class="w-full rounded-lg mb-2" />
+                                    <p class="text-sm font-medium">Orbit Satelit</p>
+                                </div>
+                                <div class="interactive-icon text-center p-3 bg-green-50 rounded-lg"
+                                    onclick="showExample('jarum')">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/78483eac-adf7-483c-99b1-f85c5bc44d7b.png"
+                                        alt="Analog clock face showing hour and minute hands moving in circular motion with Roman numerals"
+                                        class="w-full rounded-lg mb-2" />
+                                    <p class="text-sm font-medium">Jarum Jam</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rumus Tab -->
+            <div id="rumus-content" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="formula-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4 text-purple-600">Gerak Melingkar Beraturan (GMB)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Kecepatan Linear:</p>
+                                <p class="text-lg">\[ v = \frac{2\pi r}{T} = \omega r \]</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Kecepatan Sudut:</p>
+                                <p class="text-lg">\[ \omega = \frac{2\pi}{T} = \frac{v}{r} \]</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Percepatan Sentripetal:</p>
+                                <p class="text-lg">\[ a_s = \frac{v^2}{r} = \omega^2 r \]</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Gaya Sentripetal:</p>
+                                <p class="text-lg">\[ F_s = m \cdot a_s = \frac{mv^2}{r} \]</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formula-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4 text-red-600">Gerak Melingkar Tidak Beraturan (GMTB)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Percepatan Sudut:</p>
+                                <p class="text-lg">\[ \alpha = \frac{d\omega}{dt} \]</p>
+                            </div>
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Percepatan Tangensial:</p>
+                                <p class="text-lg">\[ a_t = \alpha \cdot r \]</p>
+                            </div>
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Percepatan Total:</p>
+                                <p class="text-lg">\[ a_{total} = \sqrt{a_s^2 + a_t^2} \]</p>
+                            </div>
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <p class="font-semibold mb-2">Persamaan Kinematik:</p>
+                                <p class="text-lg">\[ \omega = \omega_0 + \alpha t \]</p>
+                                <p class="text-lg">\[ \theta = \omega_0 t + \frac{1}{2}\alpha t^2 \]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl">
+                    <h4 class="text-lg font-semibold mb-4">Keterangan Simbol:</h4>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <p><strong>v</strong> = kecepatan linear (m/s)</p>
+                            <p><strong>ω</strong> = kecepatan sudut (rad/s)</p>
+                            <p><strong>r</strong> = jari-jari (m)</p>
+                        </div>
+                        <div>
+                            <p><strong>T</strong> = periode (s)</p>
+                            <p><strong>f</strong> = frekuensi (Hz)</p>
+                            <p><strong>α</strong> = percepatan sudut (rad/s²)</p>
+                        </div>
+                        <div>
+                            <p><strong>a_s</strong> = percepatan sentripetal (m/s²)</p>
+                            <p><strong>F_s</strong> = gaya sentripetal (N)</p>
+                            <p><strong>m</strong> = massa (kg)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contoh Soal Tab -->
+            <div id="contoh-content" class="tab-content hidden">
+                <div class="space-y-8">
+                    <div class="formula-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4 text-green-600">Contoh Soal 1: Roda Sepeda</h3>
+                        <div class="bg-green-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Sebuah roda sepeda dengan jari-jari 30 cm berputar dengan kecepatan 60 rpm. Hitunglah:
+                            </p>
+                            <p>a) Kecepatan sudut dalam rad/s</p>
+                            <p>b) Kecepatan linear titik pada tepi roda</p>
+                            <p>c) Percepatan sentripetal</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button onclick="showSolution(1)"
+                                class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+                                Lihat Penyelesaian
+                            </button>
+                            <div id="solution-1" class="hidden bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                <p class="font-semibold mb-2">Penyelesaian:</p>
+                                <p><strong>Diketahui:</strong> r = 30 cm = 0,3 m, n = 60 rpm</p>
+                                <p><strong>Jawab:</strong></p>
+                                <p>a) ω = 2πn/60 = 2π(60)/60 = 2π = 6,28 rad/s</p>
+                                <p>b) v = ωr = 6,28 × 0,3 = 1,88 m/s</p>
+                                <p>c) a_s = ω²r = (6,28)² × 0,3 = 11,8 m/s²</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formula-card p-6 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600">Contoh Soal 2: Benda pada Tali</h3>
+                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Sebuah benda bermassa 0,5 kg diikat pada ujung tali sepanjang 1 meter dan diputar
+                                horizontal dengan kecepatan 4 m/s. Hitunglah gaya sentripetal yang diperlukan!</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button onclick="showSolution(2)"
+                                class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                Lihat Penyelesaian
+                            </button>
+                            <div id="solution-2" class="hidden bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                <p class="font-semibold mb-2">Penyelesaian:</p>
+                                <p><strong>Diketahui:</strong> m = 0,5 kg, r = 1 m, v = 4 m/s</p>
+                                <p><strong>Ditanya:</strong> F_s = ?</p>
+                                <p><strong>Jawab:</strong></p>
+                                <p>F_s = mv²/r = (0,5)(4²)/1 = (0,5)(16)/1 = 8 N</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulasi Section -->
+    <section id="simulasi" class="section-hidden min-h-screen py-20 bg-gradient-to-br from-green-50 to-blue-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                Simulasi Interaktif
+            </h2>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Control Panel -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">Kontrol Simulasi</h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Massa (kg)</label>
+                                <input type="range" id="massSlider" min="0.1" max="5" step="0.1" value="1"
+                                    class="w-full" oninput="updateSimulation()">
+                                <span id="massValue" class="text-sm text-gray-600">1.0 kg</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Jari-jari (m)</label>
+                                <input type="range" id="radiusSlider" min="0.5" max="3" step="0.1" value="1.5"
+                                    class="w-full" oninput="updateSimulation()">
+                                <span id="radiusValue" class="text-sm text-gray-600">1.5 m</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Kecepatan Sudut
+                                    (rad/s)</label>
+                                <input type="range" id="omegaSlider" min="0.1" max="5" step="0.1" value="2"
+                                    class="w-full" oninput="updateSimulation()">
+                                <span id="omegaValue" class="text-sm text-gray-600">2.0 rad/s</span>
+                            </div>
+
+                            <div class="mt-6">
+                                <button onclick="toggleSimulation()" id="playButton"
+                                    class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors">
+                                    ▶ Mulai Simulasi
+                                </button>
+                            </div>
+
+                            <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                                <h4 class="font-semibold mb-2">Hasil Perhitungan:</h4>
+                                <p class="text-sm">Kecepatan Linear: <span id="velocityResult" class="font-mono">3.0
+                                        m/s</span></p>
+                                <p class="text-sm">Percepatan Sentripetal: <span id="accelerationResult"
+                                        class="font-mono">6.0 m/s²</span></p>
+                                <p class="text-sm">Gaya Sentripetal: <span id="forceResult" class="font-mono">6.0
+                                        N</span></p>
+                                <p class="text-sm">Periode: <span id="periodResult" class="font-mono">3.14 s</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Canvas -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">Visualisasi Gerak Melingkar</h3>
+                        <canvas id="simulationCanvas" width="500" height="400"
+                            class="simulation-canvas w-full"></canvas>
+
+                        <div class="mt-4 flex justify-center space-x-4">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
+                                <span class="text-sm">Benda</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-1 bg-blue-500 mr-2"></div>
+                                <span class="text-sm">Kecepatan</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-1 bg-green-500 mr-2"></div>
+                                <span class="text-sm">Gaya Sentripetal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Mode -->
+                    <div class="mt-6 bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-bold mb-4 text-gray-800">Perbandingan GMB vs GMTB</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <button onclick="setMode('gmb')" id="gmbButton"
+                                class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+                                Gerak Melingkar Beraturan
+                            </button>
+                            <button onclick="setMode('gmtb')" id="gmtbButton"
+                                class="bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400">
+                                Gerak Melingkar Tidak Beraturan
+                            </button>
+                        </div>
+                        <p id="modeDescription" class="mt-4 text-sm text-gray-600">
+                            Mode GMB: Kecepatan sudut konstan, benda bergerak dengan kecepatan linear tetap.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Section -->
+    <section id="game" class="section-hidden min-h-screen py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Game Edukatif
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tebak Orbit Game -->
+                <div class="game-card p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">🎯 Tebak Orbit</h3>
+                    <p class="mb-4 opacity-90">Tebak kecepatan sudut dari animasi yang ditampilkan!</p>
+                    <div class="bg-white/20 p-4 rounded-lg mb-4">
+                        <div id="gameOrbit" class="w-32 h-32 mx-auto relative">
+                            <div class="absolute inset-0 border-2 border-white/50 rounded-full"></div>
+                            <div id="gameObject"
+                                class="absolute w-4 h-4 bg-white rounded-full top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <input type="number" id="guessInput" placeholder="Tebak ω (rad/s)"
+                            class="w-full p-2 rounded-lg text-black" step="0.1">
+                        <button onclick="checkGuess()"
+                            class="w-full bg-white text-purple-600 py-2 px-4 rounded-lg font-semibold hover:bg-gray-100">
+                            Cek Jawaban
+                        </button>
+                        <button onclick="newGame()"
+                            class="w-full bg-purple-300 text-purple-800 py-2 px-4 rounded-lg font-semibold hover:bg-purple-200">
+                            Soal Baru
+                        </button>
+                    </div>
+                    <div id="gameResult" class="mt-4 text-center font-semibold"></div>
+                    <div class="mt-4 text-center">
+                        <span class="score-display text-2xl font-bold">Skor: <span id="gameScore">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Drag & Drop Formula -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-600">🧩 Susun Rumus</h3>
+                    <p class="mb-4 text-gray-600">Seret rumus yang tepat ke kotak yang sesuai!</p>
+
+                    <div class="mb-4">
+                        <p class="font-semibold text-gray-800">Soal: Hitunglah gaya sentripetal untuk benda bermassa 2
+                            kg yang bergerak melingkar dengan kecepatan 5 m/s dan jari-jari 1 m.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="space-y-2">
+                            <p class="text-sm font-medium text-gray-700">Pilihan Rumus:</p>
+                            <div class="space-y-2">
+                                <div draggable="true" ondragstart="drag(event)" id="formula1"
+                                    class="formula-item bg-blue-100 p-2 rounded cursor-move text-center border">F = ma
+                                </div>
+                                <div draggable="true" ondragstart="drag(event)" id="formula2"
+                                    class="formula-item bg-blue-100 p-2 rounded cursor-move text-center border">F =
+                                    mv²/r</div>
+                                <div draggable="true" ondragstart="drag(event)" id="formula3"
+                                    class="formula-item bg-blue-100 p-2 rounded cursor-move text-center border">F = mg
+                                </div>
+                                <div draggable="true" ondragstart="drag(event)" id="formula4"
+                                    class="formula-item bg-blue-100 p-2 rounded cursor-move text-center border">v = ωr
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <p class="text-sm font-medium text-gray-700">Drop Zone:</p>
+                            <div ondrop="drop(event)" ondragover="allowDrop(event)" id="dropZone"
+                                class="drop-zone border-2 border-dashed border-gray-300 p-4 rounded-lg h-32 flex items-center justify-center text-gray-500">
+                                Seret rumus ke sini
+                            </div>
+                            <button onclick="checkFormula()"
+                                class="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600">
+                                Periksa
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="formulaResult" class="text-center font-semibold"></div>
+                    <div class="mt-4 text-center">
+                        <span class="text-lg font-bold text-indigo-600">Skor Formula: <span
+                                id="formulaScore">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Quick Quiz -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-600">⚡ Kuis Kilat</h3>
+                    <div id="quizContent">
+                        <div class="mb-4">
+                            <p class="font-semibold text-gray-800 mb-3" id="quizQuestion">
+                                Jika jari-jari orbit bertambah 2 kali, maka gaya sentripetal akan...
+                            </p>
+                            <div class="space-y-2">
+                                <button onclick="selectAnswer(0)"
+                                    class="quiz-option w-full text-left p-3 rounded-lg border hover:bg-gray-50"
+                                    data-index="0">
+                                    A. Bertambah 2 kali
+                                </button>
+                                <button onclick="selectAnswer(1)"
+                                    class="quiz-option w-full text-left p-3 rounded-lg border hover:bg-gray-50"
+                                    data-index="1">
+                                    B. Berkurang 1/2 kali
+                                </button>
+                                <button onclick="selectAnswer(2)"
+                                    class="quiz-option w-full text-left p-3 rounded-lg border hover:bg-gray-50"
+                                    data-index="2">
+                                    C. Tetap sama
+                                </button>
+                                <button onclick="selectAnswer(3)"
+                                    class="quiz-option w-full text-left p-3 rounded-lg border hover:bg-gray-50"
+                                    data-index="3">
+                                    D. Bertambah 4 kali
+                                </button>
+                            </div>
+                        </div>
+
+                        <button onclick="submitQuiz()" id="submitQuiz"
+                            class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 disabled:bg-gray-300"
+                            disabled>
+                            Jawab
+                        </button>
+
+                        <div id="quizFeedback" class="mt-4 p-3 rounded-lg hidden">
+                            <p id="feedbackText" class="font-semibold"></p>
+                            <p id="explanationText" class="text-sm mt-2"></p>
+                        </div>
+
+                        <button onclick="nextQuestion()" id="nextQuestion"
+                            class="w-full mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 hidden">
+                            Soal Berikutnya
+                        </button>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <span class="text-lg font-bold text-green-600">Skor Kuis: <span id="quizScore">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+    </section>
+    <!-- Kuis Section -->
+    <section id="kuis" class="section-hidden min-h-screen py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+                Kuis Adaptif
+            </h2>
+
+            <div class="bg-white rounded-xl shadow-lg p-8">
+
+                <div id="startQuizScreen" class="text-center mb-8">
+                    <button onclick="startQuiz()"
+                        class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold text-xl">
+                        Mulai Kuis
+                    </button>
+                </div>
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-lg font-semibold">Soal <span id="currentQuestionNum">1</span> dari <span
+                                id="totalQuestions">10</span></span>
+                        <div class="flex space-x-1">
+                            <span class="text-sm text-gray-600">Tingkat:</span>
+                            <span id="difficultyLevel"
+                                class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Mudah</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Waktu Tersisa</div>
+                        <div id="timer" class="text-2xl font-bold text-red-600">05:00</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="progressBar"
+                            class="bg-gradient-to-r from-red-500 to-orange-500 h-2 rounded-full transition-all duration-300"
+                            style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="quizContainer"  style="display:none;">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-4" id="mainQuizQuestion">
+                            Sebuah benda bermassa 2 kg bergerak melingkar dengan jari-jari 0,5 m dan kecepatan 4 m/s.
+                            Berapakah gaya sentripetal yang bekerja pada benda tersebut?
+                        </h3>
+
+                        <div class="space-y-3">
+                            <button onclick="selectMainAnswer(0)"
+                                class="main-quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors">
+                                A. 32 N
+                            </button>
+                            <button onclick="selectMainAnswer(1)"
+                                class="main-quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors">
+                                B. 64 N
+                            </button>
+                            <button onclick="selectMainAnswer(2)"
+                                class="main-quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors">
+                                C. 16 N
+                            </button>
+                            <button onclick="selectMainAnswer(3)"
+                                class="main-quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors">
+                                D. 8 N
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <button onclick="submitMainQuiz()" id="submitMainQuiz"
+                            class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold disabled:bg-gray-300"
+                            disabled>
+                            Kirim Jawaban
+                        </button>
+
+                        <div class="text-right">
+                            <div class="text-sm text-gray-600">Skor Saat Ini</div>
+                            <div id="currentScore" class="text-2xl font-bold text-red-600">0</div>
+                        </div>
+                    </div>
+
+                    <div id="mainQuizFeedback" class="mt-6 p-4 rounded-lg hidden">
+                        <div class="flex items-start space-x-3">
+                            <div id="feedbackIcon" class="flex-shrink-0 w-6 h-6 rounded-full"></div>
+                            <div>
+                                <p id="mainFeedbackText" class="font-semibold mb-2"></p>
+                                <p id="mainExplanationText" class="text-sm text-gray-700"></p>
+                                <div id="formulaExplanation" class="mt-3 p-3 bg-gray-50 rounded-lg">
+                                    <p class="text-sm font-medium mb-1">Rumus yang digunakan:</p>
+                                    <p class="text-lg">\[ F_s = \frac{mv^2}{r} \]</p>
+                                    <p class="text-sm">F_s = (2)(4²)/0,5 = (2)(16)/0,5 = 64 N</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="nextMainQuestion()" id="nextMainQuestion"
+                            class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+                            Soal Berikutnya
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results -->
+                <div id="quizResults" class="hidden text-center">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/679e7a27-05bb-41b8-bb9f-0bffa1d2d1bc.png"
+                        alt="Congratulations trophy with golden color and celebration confetti background"
+                        class="w-32 h-32 mx-auto mb-6" />
+                    <h3 class="text-3xl font-bold mb-4">Kuis Selesai!</h3>
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <div class="text-3xl font-bold text-blue-600" id="finalScore">8</div>
+                            <div class="text-gray-600">Skor Akhir</div>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <div class="text-3xl font-bold text-green-600" id="correctAnswers">8</div>
+                            <div class="text-gray-600">Jawaban Benar</div>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600" id="accuracyPercentage">80%</div>
+                            <div class="text-gray-600">Akurasi</div>
+                        </div>
+                    </div>
+                    <div class="space-x-4">
+                        <button onclick="restartQuiz()"
+                            class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold">
+                            Ulangi Kuis
+                        </button>
+                        <button onclick="showSection('materi')"
+                            class="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 font-semibold">
+                            Pelajari Materi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eksperimen Section -->
+    <section id="eksperimen" class="section-hidden min-h-screen py-20 bg-gradient-to-br from-yellow-50 to-orange-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                Eksperimen Virtual
+            </h2>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Experiment 1: Pendulum -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-orange-600">🎪 Bola pada Tali (Pendulum)</h3>
+                    <div class="mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5ca0f7a2-200e-411d-b32b-5c8b5939fdba.png"
+                            alt="Pendulum experiment showing a ball attached to string swinging in circular motion with motion trails and force vectors"
+                            class="w-full rounded-lg" />
+                    </div>
+
+                    <p class="text-gray-700 mb-4">
+                        Amati bola yang diikat tali dan diputar horizontal. Perhatikan bagaimana perubahan panjang tali
+                        dan kecepatan mempengaruhi gerak melingkar.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data Eksperimen:</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <input type="number" id="expRadius" placeholder="Panjang tali (m)"
+                                        class="w-full p-2 border rounded-lg" value="1.2">
+                                </div>
+                                <div>
+                                    <input type="number" id="expRevolutions" placeholder="Jumlah putaran"
+                                        class="w-full p-2 border rounded-lg" value="10">
+                                </div>
+                                <div>
+                                    <input type="number" id="expTime" placeholder="Waktu (s)"
+                                        class="w-full p-2 border rounded-lg" value="8">
+                                </div>
+                                <div>
+                                    <input type="number" id="expMass" placeholder="Massa (kg)"
+                                        class="w-full p-2 border rounded-lg" value="0.5">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="calculateExperiment()"
+                            class="w-full bg-orange-500 text-white py-3 px-4 rounded-lg hover:bg-orange-600 font-semibold">
+                            🧮 Coba Hitung!
+                        </button>
+
+                        <div id="experimentResults" class="hidden bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Hasil Perhitungan:</h4>
+                            <div class="space-y-1 text-sm">
+                                <p>Periode (T): <span id="expPeriod" class="font-mono"></span> s</p>
+                                <p>Kecepatan Sudut (ω): <span id="expOmega" class="font-mono"></span> rad/s</p>
+                                <p>Kecepatan Linear (v): <span id="expVelocity" class="font-mono"></span> m/s</p>
+                                <p>Percepatan Sentripetal (a_s): <span id="expAcceleration" class="font-mono"></span>
+                                    m/s²</p>
+                                <p>Gaya Sentripetal (F_s): <span id="expForce" class="font-mono"></span> N</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiment 2: Satellite -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-600">🛰️ Orbit Satelit</h3>
+                    <div class="mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7b01e711-b3a1-4ee1-afb0-f000d566b87b.png"
+                            alt="Satellite orbiting Earth showing elliptical orbit path with Earth in center and satellite with solar panels and communication arrays"
+                            class="w-full rounded-lg" />
+                    </div>
+
+                    <p class="text-gray-700 mb-4">
+                        Pelajari bagaimana satelit bergerak mengelilingi Bumi. Masukkan data orbit untuk menghitung
+                        parameter gerak melingkar satelit.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Parameter Orbit:</label>
+                            <div class="space-y-3">
+                                <input type="number" id="satAltitude" placeholder="Ketinggian dari permukaan Bumi (km)"
+                                    class="w-full p-2 border rounded-lg" value="400">
+                                <input type="number" id="satMass" placeholder="Massa satelit (kg)"
+                                    class="w-full p-2 border rounded-lg" value="1000">
+                                <div class="text-xs text-gray-500">
+                                    *Jari-jari Bumi ≈ 6.371 km, Massa Bumi ≈ 5.97 × 10²⁴ kg
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="calculateSatellite()"
+                            class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 font-semibold">
+                            🚀 Hitung Orbit!
+                        </button>
+
+                        <div id="satelliteResults" class="hidden bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Data Orbit Satelit:</h4>
+                            <div class="space-y-1 text-sm">
+                                <p>Jari-jari orbit: <span id="satRadius" class="font-mono"></span> km</p>
+                                <p>Kecepatan orbit: <span id="satVelocity" class="font-mono"></span> km/s</p>
+                                <p>Periode orbit: <span id="satPeriod" class="font-mono"></span> menit</p>
+                                <p>Percepatan sentripetal: <span id="satAcceleration" class="font-mono"></span> m/s²</p>
+                                <p>Gaya gravitasi: <span id="satForce" class="font-mono"></span> N</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiment 3: Ferris Wheel -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-600">🎡 Bianglala (Ferris Wheel)</h3>
+                    <div class="mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7938f13d-edab-4c37-8bda-89fc23e20b91.png"
+                            alt="Large Ferris wheel at amusement park with passenger cabins and bright colorful lights against blue sky"
+                            class="w-full rounded-lg" />
+                    </div>
+
+                    <p class="text-gray-700 mb-4">
+                        Analisis gerak melingkar pada bianglala. Hitung kecepatan dan gaya yang dialami penumpang.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Data Bianglala:</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="number" id="wheelRadius" placeholder="Jari-jari (m)"
+                                    class="w-full p-2 border rounded-lg" value="25">
+                                <input type="number" id="wheelPeriod" placeholder="Periode putaran (menit)"
+                                    class="w-full p-2 border rounded-lg" value="15">
+                                <input type="number" id="passengerMass" placeholder="Massa penumpang (kg)"
+                                    class="w-full p-2 border rounded-lg" value="70">
+                                <input type="number" id="wheelHeight" placeholder="Tinggi dari tanah (m)"
+                                    class="w-full p-2 border rounded-lg" value="30">
+                            </div>
+                        </div>
+
+                        <button onclick="calculateFerrisWheel()"
+                            class="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 font-semibold">
+                            🎠 Analisis Bianglala!
+                        </button>
+
+                        <div id="ferrisResults" class="hidden bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Analisis Gerak Penumpang:</h4>
+                            <div class="space-y-1 text-sm">
+                                <p>Kecepatan linear: <span id="wheelVelocity" class="font-mono"></span> m/s</p>
+                                <p>Kecepatan sudut: <span id="wheelOmega" class="font-mono"></span> rad/s</p>
+                                <p>Percepatan sentripetal: <span id="wheelAcceleration" class="font-mono"></span> m/s²
+                                </p>
+                                <p>Gaya sentripetal: <span id="wheelForce" class="font-mono"></span> N</p>
+                                <p>Berat efektif di puncak: <span id="wheelWeightTop" class="font-mono"></span> N</p>
+                                <p>Berat efektif di bawah: <span id="wheelWeightBottom" class="font-mono"></span> N</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Section -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-600">📹 Video Pembelajaran</h3>
+
+               
+    <div class="space-y-4">
+        <!-- Video 1 -->
+        <div class="bg-gray-100 p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Video 1: Konsep Dasar Gerak Melingkar</h4>
+            <div class="aspect-video rounded-lg overflow-hidden mb-3">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/5kIw1o4okog?rel=0"
+                    title="Video 1 - Konsep Dasar Gerak Melingkar" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <p class="text-sm text-gray-600">Durasi: 8 menit | Topik: Definisi, contoh, dan visualisasi</p>
+        </div>
+
+
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Video 2: Rumus dan Perhitungan</h4>
+                            <div class="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:opacity-80 transition"
+                                onclick="window.open('https://youtu.be/S8wU8xLSVNQ?si=w9JjWE4P7v1cAKW61', '_blank')"
+                                title="Klik untuk menonton video di YouTube">
+                                <div class="text-center">
+                                    <div
+                                        class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M6.5 4.5L13.5 10L6.5 15.5V4.5Z" />
+                                        </svg>
+                                    </div>
+                                    <p class="text-gray-600">Tutorial Rumus dan Contoh Soal</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">Durasi: 12 menit | Topik: Rumus, perhitungan, dan contoh
+                                soal</p>
+                        </div>
+
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Video 3: Aplikasi dalam Kehidupan</h4>
+                            <div class="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:opacity-80 transition"
+                                onclick="window.open('https://youtu.be/x9Li0Hv82OQ?si=2oohTjnoeVQSsD1F', '_blank')"
+                                title="Klik untuk menonton video di YouTube">
+                                <div class="text-center">
+                                    <div
+                                        class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M6.5 4.5L13.5 10L6.5 15.5V4.5Z" />
+                                        </svg>
+                                    </div>
+                                    <p class="text-gray-600">Aplikasi Nyata Gerak Melingkar</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600">Durasi: 10 menit | Topik: Aplikasi teknologi dan industri
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Section -->
+    <section id="tentang" class="section-hidden min-h-screen py-20 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Tentang Website
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- About Content -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800">🎯 Tujuan Website</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <p>
+                            Website "Gerak Melingkar" ini dikembangkan sebagai media pembelajaran interaktif untuk
+                            membantu siswa SMA memahami konsep gerak melingkar dengan lebih mudah dan menyenangkan.
+                        </p>
+
+                        <h4 class="font-semibold text-lg text-indigo-600 mt-6">Fitur Utama:</h4>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Materi pembelajaran lengkap dengan rumus dan contoh soal</li>
+                            <li>Simulasi interaktif untuk visualisasi konsep</li>
+                            <li>Game edukatif untuk pembelajaran yang menyenangkan</li>
+                            <li>Kuis adaptif dengan feedback langsung</li>
+                            <li>Eksperimen virtual dengan perhitungan real-time</li>
+                            <li>Video pembelajaran yang mudah dipahami</li>
+                        </ul>
+
+                        <h4 class="font-semibold text-lg text-indigo-600 mt-6">Manfaat:</h4>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Pembelajaran mandiri yang fleksibel</li>
+                            <li>Pemahaman konsep yang lebih mendalam</li>
+                            <li>Latihan soal dengan berbagai tingkat kesulitan</li>
+                            <li>Feedback langsung untuk koreksi pemahaman</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Developer Info --> 
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">👨‍💻 Pengembang</h3>
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src=""
+                                alt="Professional headshot of developer wearing formal attire with friendly smile and confident expression"
+                                class="w-20 h-20 rounded-full" />
+                            <div>
+                                <h4 class="font-semibold text-lg">Nama Pengembang</h4>
+                                <p class="text-gray-600">Siswa SMA PLUS PGRI CIBINONG</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-sm text-gray-700">
+                            <p><strong>Email:</strong> developer@email.com</p>
+                            <p><strong>LinkedIn:</strong> linkedin.com/in/developer</p>
+                            <p><strong>GitHub:</strong> github.com/developer</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">📚 Untuk KTI (Karya Tulis Ilmiah)</h3>
+                        <div class="space-y-3 text-gray-700">
+                            <p>
+                                Website ini dikembangkan sebagai bagian dari Karya Tulis Ilmiah dengan tema
+                                "Pengembangan Media Pembelajaran Interaktif Berbasis Web untuk Materi Gerak Melingkar".
+                            </p>
+
+                            <div class="bg-indigo-50 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Metodologi Penelitian:</h4>
+                                <ul class="text-sm space-y-1 list-disc list-inside">
+                                    <li>Analisis kebutuhan pembelajaran</li>
+                                    <li>Desain dan pengembangan sistem</li>
+                                    <li>Implementasi teknologi web modern</li>
+                                    <li>Evaluasi efektivitas pembelajaran</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">🎓 Target Pengguna</h3>
+                        <div class="space-y-3 text-gray-700">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-blue-600 font-bold">1</span>
+                                </div>
+                                <span>Siswa SMA kelas XI dan XII</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                    <span class="text-green-600 font-bold">2</span>
+                                </div>
+                                <span>Guru fisika sebagai media bantu mengajar</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <span class="text-purple-600 font-bold">3</span>
+                                </div>
+                                <span>Mahasiswa yang ingin mengulas materi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologies Used -->
+            <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">🛠️ Teknologi yang Digunakan</h3>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                            <span class="text-2xl">🌐</span>
+                        </div>
+                        <h4 class="font-semibold">HTML5</h4>
+                        <p class="text-sm text-gray-600">Struktur halaman web modern</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                            <span class="text-2xl">🎨</span>
+                        </div>
+                        <h4 class="font-semibold">CSS3 & Tailwind</h4>
+                        <p class="text-sm text-gray-600">Styling dan responsif design</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-yellow-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <h4 class="font-semibold">JavaScript</h4>
+                        <p class="text-sm text-gray-600">Interaktivitas dan animasi</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                            <span class="text-2xl">📐</span>
+                        </div>
+                        <h4 class="font-semibold">MathJax</h4>
+                        <p class="text-sm text-gray-600">Rendering rumus matematika</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-12 text-center text-gray-600">
+                <p>© 2024 Website Gerak Melingkar. Dikembangkan untuk pembelajaran fisika interaktif.</p>
+                <p class="mt-2 text-sm">Media pembelajaran mandiri untuk siswa SMA</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Global variables
+        let currentSection = 'home';
+        let simulationRunning = false;
+        let animationId;
+        let gameScore = 0;
+        let formulaScore = 0;
+        let quizScore = 0;
+        let currentQuizQuestion = 0;
+        let selectedAnswer = null;
+        let quizData = [];
+        let gameAnswer = 0;
+        let currentMode = 'gmb';
+
+        // Quiz questions data
+        const quizQuestions = [
+            {
+                question: "Sebuah benda bermassa 2 kg bergerak melingkar dengan jari-jari 0,5 m dan kecepatan 4 m/s. Berapakah gaya sentripetal yang bekerja pada benda tersebut?",
+                options: ["32 N", "64 N", "16 N", "8 N"],
+                correct: 1,
+                explanation: "Menggunakan rumus F_s = mv²/r = (2)(4²)/0,5 = 64 N",
+                difficulty: "mudah"
+            },
+            {
+                question: "Jika kecepatan linear benda yang bergerak melingkar menjadi 2 kali lipat, maka percepatan sentripetalnya akan...",
+                options: ["Tetap sama", "Menjadi 2 kali lipat", "Menjadi 4 kali lipat", "Menjadi 1/2 kali"],
+                correct: 2,
+                explanation: "Karena a_s = v²/r, jika v menjadi 2v, maka a_s menjadi (2v)²/r = 4v²/r = 4 kali lipat",
+                difficulty: "sedang"
+            },
+            {
+                question: "Periode gerak melingkar beraturan didefinisikan sebagai...",
+                options: ["Waktu untuk menempuh 1/2 putaran", "Waktu untuk menempuh 1 putaran penuh", "Jumlah putaran per detik", "Kecepatan sudut maksimum"],
+                correct: 1,
+                explanation: "Periode (T) adalah waktu yang diperlukan untuk menempuh satu putaran penuh",
+                difficulty: "mudah"
+            }
+        ];
+
+        // Initialize
+    function startApp() {
+    const welcome = document.getElementById('welcomeScreen');
+    if (welcome) welcome.style.display = 'none';
+
+    // Tampilkan section awal
+    if (typeof showSection === 'function') showSection('home');
+
+    // Panggil inisialisasi yang hanya perlu berjalan setelah klik Mulai
+    if (typeof initializeSimulation === 'function') initializeSimulation();
+    if (typeof newGame === 'function') newGame();
+
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+        document.addEventListener('DOMContentLoaded', function () {
+            showSection('home');
+            initializeSimulation();
+            newGame();
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        });
+
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = ['home', 'materi', 'simulasi', 'game', 'kuis', 'eksperimen', 'tentang'];
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    element.classList.add('section-hidden');
+                }
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionName);
+            if (targetSection) {
+                targetSection.classList.remove('section-hidden');
+            }
+
+            // Update navigation
+            updateNavigation(sectionName);
+            currentSection = sectionName;
+
+            // Re-render MathJax if needed
+            if (window.MathJax && sectionName === 'materi') {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function updateNavigation(activeSection) {
+            // Update desktop navigation
+            const navButtons = document.querySelectorAll('nav button');
+            navButtons.forEach(button => {
+                button.className = 'nav-item px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100';
+            });
+
+            // Set active button
+            const activeButton = document.querySelector(`nav button[onclick="showSection('${activeSection}')"]`);
+            if (activeButton) {
+                activeButton.className = 'nav-item px-4 py-2 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200';
+            }
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Materi tab functions
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = ['konsep-content', 'rumus-content', 'contoh-content'];
+            tabContents.forEach(content => {
+                const element = document.getElementById(content);
+                if (element) {
+                    element.classList.add('hidden');
+                }
+            });
+
+            // Show selected tab content
+            const targetContent = document.getElementById(tabName + '-content');
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+
+            // Update tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.className = 'tab-button px-6 py-3 rounded-lg bg-gray-200 text-gray-700 font-semibold';
+            });
+
+            const activeTab = document.getElementById('tab-' + tabName);
+            if (activeTab) {
+                activeTab.className = 'tab-button active px-6 py-3 rounded-lg bg-blue-500 text-white font-semibold';
+            }
+
+            // Re-render MathJax for formulas
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // Interactive content functions
+        function showDefinition() {
+            alert('Gerak melingkar adalah gerak suatu benda pada lintasan berbentuk lingkaran dengan jari-jari konstan. Gaya sentripetal selalu mengarah ke pusat lingkaran dan menyebabkan perubahan arah kecepatan.');
+        }
+
+        function showExample(type) {
+            const examples = {
+                'roda': 'Roda kendaraan: Setiap titik pada roda bergerak melingkar saat kendaraan bergerak. Semakin cepat kendaraan, semakin besar kecepatan sudut roda.',
+                'kipas': 'Kipas angin: Baling-baling kipas berputar dengan kecepatan sudut konstan, menciptakan aliran udara melalui gerak melingkar.',
+                'satelit': 'Orbit satelit: Satelit bergerak mengelilingi Bumi dalam lintasan melingkar atau elips, dengan gaya gravitasi sebagai gaya sentripetal.',
+                'jarum': 'Jarum jam: Jarum jam bergerak melingkar dengan periode yang berbeda - jarum detik (60s), menit (3600s), dan jam (43200s).'
+            };
+            alert(examples[type]);
+        }
+
+        function showSolution(problemNum) {
+            const solution = document.getElementById('solution-' + problemNum);
+            if (solution) {
+                solution.classList.toggle('hidden');
+                if (window.MathJax) {
+                    MathJax.typesetPromise();
+                }
+            }
+        }
+
+        // Simulation functions
+        function initializeSimulation() {
+            const canvas = document.getElementById('simulationCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let angle = 0;
+
+            function drawSimulation() {
+                if (!simulationRunning) return;
+
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = parseFloat(document.getElementById('radiusSlider').value) * 80; // Scale for display
+                const omega = parseFloat(document.getElementById('omegaSlider').value);
+
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw orbit path
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.strokeStyle = '#e5e7eb';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Calculate position
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+
+                // Draw center
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = '#6366f1';
+                ctx.fill();
+
+                // Draw object
+                ctx.beginPath();
+                ctx.arc(x, y, 12, 0, 2 * Math.PI);
+                ctx.fillStyle = '#ef4444';
+                ctx.fill();
+
+                // Draw velocity vector
+                const velocityScale = 30;
+                const vx = -omega * radius * Math.sin(angle) / 80 * velocityScale;
+                const vy = omega * radius * Math.cos(angle) / 80 * velocityScale;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + vx, y + vy);
+                ctx.strokeStyle = '#3b82f6';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Draw centripetal force vector
+                const forceScale = 20;
+                const fx = -(x - centerX) / radius * forceScale;
+                const fy = -(y - centerY) / radius * forceScale;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + fx, y + fy);
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Update angle based on mode
+                if (currentMode === 'gmb') {
+                    angle += omega * 0.02; // Constant angular velocity
+                } else {
+                    // GMTB - varying angular velocity
+                    const alpha = 0.5; // Angular acceleration
+                    omega += alpha * 0.02;
+                    angle += omega * 0.02;
+                    document.getElementById('omegaSlider').value = omega;
+                    document.getElementById('omegaValue').textContent = omega.toFixed(1) + ' rad/s';
+                }
+
+                animationId = requestAnimationFrame(drawSimulation);
+            }
+
+            drawSimulation();
+        }
+
+        function updateSimulation() {
+            const mass = parseFloat(document.getElementById('massSlider').value);
+            const radius = parseFloat(document.getElementById('radiusSlider').value);
+            const omega = parseFloat(document.getElementById('omegaSlider').value);
+
+            // Update display values
+            document.getElementById('massValue').textContent = mass.toFixed(1) + ' kg';
+            document.getElementById('radiusValue').textContent = radius.toFixed(1) + ' m';
+            document.getElementById('omegaValue').textContent = omega.toFixed(1) + ' rad/s';
+
+            // Calculate results
+            const velocity = omega * radius;
+            const acceleration = omega * omega * radius;
+            const force = mass * acceleration;
+            const period = 2 * Math.PI / omega;
+
+            // Update result displays
+            document.getElementById('velocityResult').textContent = velocity.toFixed(2) + ' m/s';
+            document.getElementById('accelerationResult').textContent = acceleration.toFixed(2) + ' m/s²';
+            document.getElementById('forceResult').textContent = force.toFixed(2) + ' N';
+            document.getElementById('periodResult').textContent = period.toFixed(2) + ' s';
+        }
+
+        function toggleSimulation() {
+            const button = document.getElementById('playButton');
+            if (simulationRunning) {
+                simulationRunning = false;
+                button.textContent = '▶ Mulai Simulasi';
+                button.className = 'w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors';
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+            } else {
+                simulationRunning = true;
+                button.textContent = '⏸ Pause Simulasi';
+                button.className = 'w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors';
+                initializeSimulation();
+            }
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+
+            // Update button styles
+            const gmbButton = document.getElementById('gmbButton');
+            const gmtbButton = document.getElementById('gmtbButton');
+
+            if (mode === 'gmb') {
+                gmbButton.className = 'bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600';
+                gmtbButton.className = 'bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400';
+                document.getElementById('modeDescription').textContent = 'Mode GMB: Kecepatan sudut konstan, benda bergerak dengan kecepatan linear tetap.';
+            } else {
+                gmbButton.className = 'bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400';
+                gmtbButton.className = 'bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600';
+                document.getElementById('modeDescription').textContent = 'Mode GMTB: Kecepatan sudut berubah (ada percepatan sudut), benda mengalami percepatan tangensial.';
+            }
+        }
+
+        // Game functions
+        function newGame() {
+            gameAnswer = Math.random() * 4 + 0.5; // Random omega between 0.5 and 4.5
+
+            // Animate game object
+            const gameObject = document.getElementById('gameObject');
+            if (gameObject) {
+                gameObject.style.animation = `orbit ${2 * Math.PI / gameAnswer}s linear infinite`;
+            }
+
+            // Clear previous result
+            document.getElementById('gameResult').textContent = '';
+            document.getElementById('guessInput').value = '';
+        }
+
+        function checkGuess() {
+            const guess = parseFloat(document.getElementById('guessInput').value);
+            const tolerance = 0.3;
+            const resultDiv = document.getElementById('gameResult');
+
+            if (Math.abs(guess - gameAnswer) <= tolerance) {
+                resultDiv.textContent = '🎉 Benar! +10 poin';
+                resultDiv.className = 'mt-4 text-center font-semibold text-green-300';
+                gameScore += 10;
+            } else {
+                resultDiv.textContent = `❌ Salah! Jawaban: ${gameAnswer.toFixed(1)} rad/s`;
+                resultDiv.className = 'mt-4 text-center font-semibold text-red-300';
+            }
+
+            document.getElementById('gameScore').textContent = gameScore;
+        }
+
+        // Drag and Drop functions
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+            const dropZone = document.getElementById('dropZone');
+
+            // Clear drop zone and add the formula
+            dropZone.innerHTML = '';
+            dropZone.appendChild(draggedElement.cloneNode(true));
+            dropZone.classList.add('bg-blue-50', 'border-blue-300');
+        }
+
+        function checkFormula() {
+            const dropZone = document.getElementById('dropZone');
+            const droppedFormula = dropZone.textContent.trim();
+            const resultDiv = document.getElementById('formulaResult');
+
+            if (droppedFormula === 'F = mv²/r') {
+                resultDiv.textContent = '✅ Benar! Rumus gaya sentripetal yang tepat. +15 poin';
+                resultDiv.className = 'text-center font-semibold text-green-600';
+                formulaScore += 15;
+            } else {
+                resultDiv.textContent = '❌ Salah! Gunakan rumus F = mv²/r untuk gaya sentripetal.';
+                resultDiv.className = 'text-center font-semibold text-red-600';
+            }
+
+            document.getElementById('formulaScore').textContent = formulaScore;
+        }
+
+        // Quiz functions
+        let selectedQuizAnswer = null;
+
+        function selectAnswer(index) {
+            selectedQuizAnswer = index;
+
+            // Update button styles
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((option, i) => {
+                if (i === index) {
+                    option.className = 'quiz-option w-full text-left p-3 rounded-lg border-2 border-blue-500 bg-blue-50';
+                } else {
+                    option.className = 'quiz-option w-full text-left p-3 rounded-lg border hover:bg-gray-50';
+                }
+            });
+
+            // Enable submit button
+            document.getElementById('submitQuiz').disabled = false;
+            document.getElementById('submitQuiz').className = 'w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600';
+        }
+
+        function submitQuiz() {
+            const feedback = document.getElementById('quizFeedback');
+            const feedbackText = document.getElementById('feedbackText');
+            const explanationText = document.getElementById('explanationText');
+
+            feedback.classList.remove('hidden');
+
+            if (selectedQuizAnswer === 1) { // Correct answer is B (index 1)
+                feedback.className = 'mt-4 p-3 rounded-lg bg-green-100 border border-green-300';
+                feedbackText.textContent = '✅ Jawaban Benar!';
+                feedbackText.className = 'font-semibold text-green-700';
+                explanationText.textContent = 'Benar! Jika jari-jari bertambah 2 kali, maka F = mv²/r akan berkurang 1/2 kali karena berbanding terbalik dengan r.';
+                quizScore += 5;
+            } else {
+                feedback.className = 'mt-4 p-3 rounded-lg bg-red-100 border border-red-300';
+                feedbackText.textContent = '❌ Jawaban Salah';
+                feedbackText.className = 'font-semibold text-red-700';
+                explanationText.textContent = 'Jawaban yang benar adalah B. Gaya sentripetal berbanding terbalik dengan jari-jari, sehingga jika r bertambah 2 kali, F akan berkurang 1/2 kali.';
+            }
+
+            document.getElementById('quizScore').textContent = quizScore;
+            document.getElementById('nextQuestion').classList.remove('hidden');
+            document.getElementById('submitQuiz').disabled = true;
+        }
+
+        function nextQuestion() {
+            // Reset for next question (simplified - just reset the current question)
+            document.getElementById('quizFeedback').classList.add('hidden');
+            document.getElementById('nextQuestion').classList.add('hidden');
+            document.getElementById('submitQuiz').disabled = true;
+            document.getElementById('submitQuiz').className = 'w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 disabled:bg-gray-300';
+
+            // Reset option styles
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.className = 'quiz-option w-full text-left p-3 rounded-lg border hover:bg-gray-50';
+            });
+
+            selectedQuizAnswer = null;
+        }
+
+        // Main Quiz functions
+        let selectedMainAnswer = null;
+        let currentMainQuestion = 0;
+        let mainQuizScore = 0;
+        let correctAnswers = 0;
+        let quizTimer;
+        let timeLeft = 300; // 5 minutes
+
+        function selectMainAnswer(index) {
+            selectedMainAnswer = index;
+
+            // Update button styles
+            const options = document.querySelectorAll('.main-quiz-option');
+            options.forEach((option, i) => {
+                if (i === index) {
+                    option.className = 'main-quiz-option w-full text-left p-4 rounded-lg border-2 border-red-500 bg-red-50 transition-colors';
+                } else {
+                    option.className = 'main-quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors';
+                }
+            });
+
+            // Enable submit button
+            document.getElementById('submitMainQuiz').disabled = false;
+            document.getElementById('submitMainQuiz').className = 'bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold';
+        }
+
+        function submitMainQuiz() {
+            const feedback = document.getElementById('mainQuizFeedback');
+            const feedbackText = document.getElementById('mainFeedbackText');
+            const explanationText = document.getElementById('mainExplanationText');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+
+            feedback.classList.remove('hidden');
+
+            if (selectedMainAnswer === 1) { // Correct answer is B (64 N)
+                feedback.className = 'mt-6 p-4 rounded-lg bg-green-100 border border-green-300';
+                feedbackIcon.className = 'flex-shrink-0 w-6 h-6 rounded-full bg-green-500';
+                feedbackIcon.innerHTML = '✓';
+                feedbackText.textContent = '🎉 Jawaban Benar!';
+                feedbackText.className = 'font-semibold mb-2 text-green-700';
+                explanationText.textContent = 'Excellent! Anda menggunakan rumus yang tepat dan perhitungan yang benar.';
+                mainQuizScore += 10;
+                correctAnswers++;
+            } else {
+                feedback.className = 'mt-6 p-4 rounded-lg bg-red-100 border border-red-300';
+                feedbackIcon.className = 'flex-shrink-0 w-6 h-6 rounded-full bg-red-500';
+                feedbackIcon.innerHTML = '✗';
+                feedbackText.textContent = '❌ Jawaban Kurang Tepat';
+                feedbackText.className = 'font-semibold mb-2 text-red-700';
+                explanationText.textContent = 'Jawaban yang benar adalah B (64 N). Mari pelajari penyelesaiannya:';
+            }
+
+            document.getElementById('currentScore').textContent = mainQuizScore;
+            document.getElementById('nextMainQuestion').classList.remove('hidden');
+            document.getElementById('submitMainQuiz').disabled = true;
+
+            // Re-render MathJax for formula
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function nextMainQuestion() {
+            currentMainQuestion++;
+
+            if (currentMainQuestion >= 10) {
+                showQuizResults();
+                return;
+            }
+
+            // Update progress
+            const progress = ((currentMainQuestion + 1) / 10) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentQuestionNum').textContent = currentMainQuestion + 1;
+
+            // Reset UI
+            document.getElementById('mainQuizFeedback').classList.add('hidden');
+            document.getElementById('nextMainQuestion').classList.add('hidden');
+            document.getElementById('submitMainQuiz').disabled = true;
+            document.getElementById('submitMainQuiz').className = 'bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold disabled:bg-gray-300';
+
+            // Reset option styles
+            const options = document.querySelectorAll('.main-quiz-option');
+            options.forEach(option => {
+                option.className = 'main-quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors';
+            });
+
+            selectedMainAnswer = null;
+
+            // Load next question (simplified - could be expanded with more questions)
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+            // Simplified - just show a generic next question
+            const questions = [
+                "Sebuah roda dengan jari-jari 40 cm berputar 150 rpm. Berapakah kecepatan linear pada tepi roda?",
+                "Jika periode gerak melingkar suatu benda adalah 4 sekon, berapakah frekuensinya?",
+                "Percepatan sentripetal bergantung pada...",
+                // Add more questions as needed
+            ];
+
+            if (currentMainQuestion < questions.length) {
+                document.getElementById('mainQuizQuestion').textContent = questions[currentMainQuestion];
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('quizResults').classList.remove('hidden');
+
+            // Update results
+            document.getElementById('finalScore').textContent = mainQuizScore;
+            document.getElementById('correctAnswers').textContent = correctAnswers;
+            document.getElementById('accuracyPercentage').textContent = Math.round((correctAnswers / 10) * 100) + '%';
+
+            // Stop timer
+            if (quizTimer) {
+                clearInterval(quizTimer);
+            }
+        }
+
+        function restartQuiz() {
+            // Reset quiz state
+            currentMainQuestion = 0;
+            mainQuizScore = 0;
+            correctAnswers = 0;
+            timeLeft = 300;
+
+            // Reset UI
+            document.getElementById('quizContainer').classList.remove('hidden');
+            document.getElementById('quizResults').classList.add('hidden');
+            document.getElementById('progressBar').style.width = '10%';
+            document.getElementById('currentQuestionNum').textContent = '1';
+            document.getElementById('currentScore').textContent = '0';
+
+            // Start timer
+            startQuizTimer();
+        }
+
+        function startQuizTimer() {
+            quizTimer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById('timer').textContent =
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(quizTimer);
+                    showQuizResults();
+                }
+            }, 1000);
+        }
+
+        function startQuiz() {
+    // Sembunyikan tombol mulai
+    document.getElementById('startQuizScreen').style.display = 'none';
+    // Tampilkan konten kuis
+    document.getElementById('quizContainer').style.display = 'block';
+    // Reset timer dan mulai
+    timeLeft = 300;
+    startQuizTimer();
+}
+
+        // Start quiz timer when page loads
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     startQuizTimer();
+        // });
+
+        // Experiment functions
+        function calculateExperiment() {
+            const radius = parseFloat(document.getElementById('expRadius').value);
+            const revolutions = parseFloat(document.getElementById('expRevolutions').value);
+            const time = parseFloat(document.getElementById('expTime').value);
+            const mass = parseFloat(document.getElementById('expMass').value);
+
+            if (!radius || !revolutions || !time || !mass) {
+                alert('Mohon isi semua data eksperimen!');
+                return;
+            }
+
+            // Calculations
+            const period = time / revolutions;
+            const omega = 2 * Math.PI / period;
+            const velocity = omega * radius;
+            const acceleration = omega * omega * radius;
+            const force = mass * acceleration;
+
+            // Display results
+            document.getElementById('expPeriod').textContent = period.toFixed(2);
+            document.getElementById('expOmega').textContent = omega.toFixed(2);
+            document.getElementById('expVelocity').textContent = velocity.toFixed(2);
+            document.getElementById('expAcceleration').textContent = acceleration.toFixed(2);
+            document.getElementById('expForce').textContent = force.toFixed(2);
+
+            document.getElementById('experimentResults').classList.remove('hidden');
+        }
+
+        function calculateSatellite() {
+            const altitude = parseFloat(document.getElementById('satAltitude').value);
+            const mass = parseFloat(document.getElementById('satMass').value);
+
+            if (!altitude || !mass) {
+                alert('Mohon isi data satelit!');
+                return;
+            }
+
+            // Constants
+            const earthRadius = 6371; // km
+            const earthMass = 5.97e24; // kg
+            const G = 6.67e-11; // N⋅m²/kg²
+
+            // Calculations
+            const orbitRadius = earthRadius + altitude;
+            const velocity = Math.sqrt(G * earthMass / (orbitRadius * 1000)) / 1000; // km/s
+            const period = 2 * Math.PI * orbitRadius / velocity / 60; // minutes
+            const acceleration = velocity * velocity * 1000 / (orbitRadius * 1000); // m/s²
+            const force = mass * acceleration;
+
+            // Display results
+            document.getElementById('satRadius').textContent = orbitRadius.toFixed(0);
+            document.getElementById('satVelocity').textContent = velocity.toFixed(2);
+            document.getElementById('satPeriod').textContent = period.toFixed(0);
+            document.getElementById('satAcceleration').textContent = acceleration.toFixed(2);
+            document.getElementById('satForce').textContent = force.toFixed(0);
+
+            document.getElementById('satelliteResults').classList.remove('hidden');
+        }
+
+        function calculateFerrisWheel() {
+            const radius = parseFloat(document.getElementById('wheelRadius').value);
+            const period = parseFloat(document.getElementById('wheelPeriod').value) * 60; // convert to seconds
+            const mass = parseFloat(document.getElementById('passengerMass').value);
+            const height = parseFloat(document.getElementById('wheelHeight').value);
+
+            if (!radius || !period || !mass || !height) {
+                alert('Mohon isi semua data bianglala!');
+                return;
+            }
+
+            // Calculations
+            const omega = 2 * Math.PI / period;
+            const velocity = omega * radius;
+            const acceleration = omega * omega * radius;
+            const force = mass * acceleration;
+            const g = 9.8; // m/s²
+            const weightTop = mass * (g - acceleration);
+            const weightBottom = mass * (g + acceleration);
+
+            // Display results
+            document.getElementById('wheelVelocity').textContent = velocity.toFixed(2);
+            document.getElementById('wheelOmega').textContent = omega.toFixed(4);
+            document.getElementById('wheelAcceleration').textContent = acceleration.toFixed(3);
+            document.getElementById('wheelForce').textContent = force.toFixed(2);
+            document.getElementById('wheelWeightTop').textContent = weightTop.toFixed(1);
+            document.getElementById('wheelWeightBottom').textContent = weightBottom.toFixed(1);
+
+            document.getElementById('ferrisResults').classList.remove('hidden');
+        }
+
+        // Initialize simulation when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            updateSimulation();
+        });
+    </script>
+</body>
+
+</html>

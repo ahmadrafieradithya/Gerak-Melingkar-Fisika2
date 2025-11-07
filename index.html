@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Gerak Melingkar - Belajar Fisika Interaktif</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -279,11 +279,11 @@
                         <div class="space-y-4">
                             <div class="bg-purple-50 p-4 rounded-lg">
                                 <p class="font-semibold mb-2">Kecepatan Linear:</p>
-                                <p class="text-lg">\[ v = \frac{2\pi r}{T} = \omega r \]</p>
+                                <p class="text-lg">\[ v = \frac{2\pi r}{T} = 2\pi r f = \omega r \]</p>
                             </div>
                             <div class="bg-purple-50 p-4 rounded-lg">
                                 <p class="font-semibold mb-2">Kecepatan Sudut:</p>
-                                <p class="text-lg">\[ \omega = \frac{2\pi}{T} = \frac{v}{r} \]</p>
+                                <p class="text-lg">\[ \omega = \frac{2\pi}{T} = 2\pi f \]</p>
                             </div>
                             <div class="bg-purple-50 p-4 rounded-lg">
                                 <p class="font-semibold mb-2">Percepatan Sentripetal:</p>
@@ -297,11 +297,11 @@
                     </div>
 
                     <div class="formula-card p-6 rounded-xl">
-                        <h3 class="text-xl font-bold mb-4 text-red-600">Gerak Melingkar Tidak Beraturan (GMTB)</h3>
+                        <h3 class="text-xl font-bold mb-4 text-red-600">Gerak Melingkar Tidak Beraturan (GMBB)</h3>
                         <div class="space-y-4">
                             <div class="bg-red-50 p-4 rounded-lg">
                                 <p class="font-semibold mb-2">Percepatan Sudut:</p>
-                                <p class="text-lg">\[ \alpha = \frac{d\omega}{dt} \]</p>
+                                <p class="text-lg">\[ \alpha = \frac{\Delta \omega}{\Delta t} \]</p>
                             </div>
                             <div class="bg-red-50 p-4 rounded-lg">
                                 <p class="font-semibold mb-2">Percepatan Tangensial:</p>
@@ -315,6 +315,7 @@
                                 <p class="font-semibold mb-2">Persamaan Kinematik:</p>
                                 <p class="text-lg">\[ \omega = \omega_0 + \alpha t \]</p>
                                 <p class="text-lg">\[ \theta = \omega_0 t + \frac{1}{2}\alpha t^2 \]</p>
+                                <p class="text-lg">\[ \omega_t^2 = \omega_0^2 + 2 \alpha \theta \]</p>
                             </div>
                         </div>
                     </div>
@@ -1043,17 +1044,18 @@
                     </div>
                 </div>
 
-                <!-- Developer Info --> 
+                <!-- Developer Info -->
                 <div class="space-y-6">
                     <div class="bg-white p-6 rounded-xl shadow-lg">
                         <h3 class="text-xl font-bold mb-4 text-gray-800">👨‍💻 Pengembang</h3>
                         <div class="flex items-center space-x-4 mb-4">
-                            <img src=""
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6a19556c-3eaf-4e2b-ad82-b145fc014789.png"
                                 alt="Professional headshot of developer wearing formal attire with friendly smile and confident expression"
                                 class="w-20 h-20 rounded-full" />
                             <div>
                                 <h4 class="font-semibold text-lg">Nama Pengembang</h4>
-                                <p class="text-gray-600">Siswa SMA PLUS PGRI CIBINONG</p>
+                                <p class="text-gray-600">Mahasiswa Pendidikan Fisika</p>
+                                <p class="text-gray-600">Universitas Indonesia</p>
                             </div>
                         </div>
 
@@ -1300,7 +1302,7 @@
 
         // Interactive content functions
         function showDefinition() {
-            alert('Gerak melingkar adalah gerak suatu benda pada lintasan berbentuk lingkaran dengan jari-jari konstan. Gaya sentripetal selalu mengarah ke pusat lingkaran dan menyebabkan perubahan arah kecepatan.');
+            alert('Gerak melingkar adalah gerak suatu benda pada lintasan berbentuk lingkaran dengan jari-jari konstan. Percepatan sentripetal selalu mengarah ke pusat lingkaran dan menyebabkan perubahan arah kecepatan benda. Gaya sentripetal berperan sebagai penyebab munculnya percepatan sentripetal, sehingga benda dapat terus bergerak melingkar.');
         }
 
         function showExample(type) {

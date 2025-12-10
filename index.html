@@ -7,33 +7,20 @@
     <title>Gerak Melingkar - Belajar Fisika Interaktif</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-        window.MathJax = {
+        MathJax = {
             tex: {
-                inlineMath: [['\\(', '\\)']],
-                displayMath: [['\\[', '\\]']]
+                inlineMath: { '[+]': [['$', '$']] }
+            },
+            svg: {
+                fontCache: 'global'
             }
         };
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
 </head>
 
 <body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
-
-    <!-- START SCREEN:-->
-<div id="welcomeScreen" class="fixed inset-0 bg-gradient-to-br from-blue-700 via-purple-700 to-pink-600 flex items-center justify-center z-50">
-    <div class="text-center text-white max-w-md px-6">
-        <h1 class="text-4xl font-bold mb-4">Gerak Melingkar</h1>
-        <p class="mb-6">Belajar fisika interaktif — simulasi, game, kuis, dan eksperimen.</p>
-        <button id="startButton" onclick="startApp()"
-            class="bg-white text-purple-700 font-semibold px-8 py-3 rounded-lg shadow-lg hover:scale-105 transform transition">
-            Mulai
-        </button>
-        <p class="text-sm opacity-80 mt-4">Klik "Mulai" untuk memasuki aplikasi</p>
-    </div>
-</div>
-<!-- ...existing code... -->
 
     <!-- Navigation -->
     <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
@@ -105,8 +92,8 @@
                 <div class="orbit-center"></div>
             </div>
 
-            <h1
-                class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
+            <h1 class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600
+                 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
                 Belajar Gerak Melingkar
             </h1>
             <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -119,8 +106,9 @@
                     class="nav-item bg-white p-6 rounded-xl shadow-lg hover:shadow-xl">
                     <div class="w-12 h-12 bg-blue-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5
+                                 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5
+                                  1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253">
                             </path>
                         </svg>
                     </div>
@@ -156,8 +144,8 @@
                     <!--gambar kuis-->
                     <div class="w-12 h-12 bg-red-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414
+                                 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                             </path>
                         </svg>
                     </div>
@@ -483,7 +471,7 @@
 
                     <!-- Comparison Mode -->
                     <div class="mt-6 bg-white p-6 rounded-xl shadow-lg">
-                        <h3 class="text-lg font-bold mb-4 text-gray-800">Perbandingan GMB vs GMTB</h3>
+                        <h3 class="text-lg font-bold mb-4 text-gray-800">Perbandingan GMB vs GMBB</h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <button onclick="setMode('gmb')" id="gmbButton"
                                 class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
@@ -689,7 +677,7 @@
                     </div>
                 </div>
 
-                <div id="quizContainer"  style="display:none;">
+                <div id="quizContainer" style="display:none;">
                     <div class="mb-6">
                         <h3 class="text-xl font-semibold mb-4" id="mainQuizQuestion">
                             Sebuah benda bermassa 2 kg bergerak melingkar dengan jari-jari 0,5 m dan kecepatan 4 m/s.
@@ -735,10 +723,12 @@
                             <div>
                                 <p id="mainFeedbackText" class="font-semibold mb-2"></p>
                                 <p id="mainExplanationText" class="text-sm text-gray-700"></p>
-                                <div id="formulaExplanation" class="mt-3 p-3 bg-gray-50 rounded-lg">
-                                    <p class="text-sm font-medium mb-1">Rumus yang digunakan:</p>
-                                    <p class="text-lg">\[ F_s = \frac{mv^2}{r} \]</p>
-                                    <p class="text-sm">F_s = (2)(4²)/0,5 = (2)(16)/0,5 = 64 N</p>
+
+                                <!-- GANTI: buat container dinamis untuk rumus & perhitungan -->
+                                <div id="formulaExplanation" class="mt-3 p-3 bg-gray-50 rounded-lg hidden">
+                                    <p id="formulaTitle" class="text-sm font-medium mb-1">Rumus yang digunakan:</p>
+                                    <div id="formulaContent" class="text-lg font-mono"></div>
+                                    <div id="formulaSteps" class="text-sm mt-2 text-gray-700"></div>
                                 </div>
                             </div>
                         </div>
@@ -748,41 +738,40 @@
                             Soal Berikutnya
                         </button>
                     </div>
-                </div>
 
-                <!-- Quiz Results -->
-                <div id="quizResults" class="hidden text-center">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/679e7a27-05bb-41b8-bb9f-0bffa1d2d1bc.png"
-                        alt="Congratulations trophy with golden color and celebration confetti background"
-                        class="w-32 h-32 mx-auto mb-6" />
-                    <h3 class="text-3xl font-bold mb-4">Kuis Selesai!</h3>
-                    <div class="grid md:grid-cols-3 gap-6 mb-8">
-                        <div class="bg-blue-50 p-6 rounded-lg">
-                            <div class="text-3xl font-bold text-blue-600" id="finalScore">8</div>
-                            <div class="text-gray-600">Skor Akhir</div>
+                    <!-- Quiz Results -->
+                    <div id="quizResults" class="hidden text-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/679e7a27-05bb-41b8-bb9f-0bffa1d2d1bc.png"
+                            alt="Congratulations trophy with golden color and celebration confetti background"
+                            class="w-32 h-32 mx-auto mb-6" />
+                        <h3 class="text-3xl font-bold mb-4">Kuis Selesai!</h3>
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-blue-50 p-6 rounded-lg">
+                                <div class="text-3xl font-bold text-blue-600" id="finalScore">8</div>
+                                <div class="text-gray-600">Skor Akhir</div>
+                            </div>
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <div class="text-3xl font-bold text-green-600" id="correctAnswers">8</div>
+                                <div class="text-gray-600">Jawaban Benar</div>
+                            </div>
+                            <div class="bg-purple-50 p-6 rounded-lg">
+                                <div class="text-3xl font-bold text-purple-600" id="accuracyPercentage">80%</div>
+                                <div class="text-gray-600">Akurasi</div>
+                            </div>
                         </div>
-                        <div class="bg-green-50 p-6 rounded-lg">
-                            <div class="text-3xl font-bold text-green-600" id="correctAnswers">8</div>
-                            <div class="text-gray-600">Jawaban Benar</div>
+                        <div class="space-x-4">
+                            <button onclick="restartQuiz()"
+                                class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold">
+                                Ulangi Kuis
+                            </button>
+                            <button onclick="showSection('materi')"
+                                class="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 font-semibold">
+                                Pelajari Materi
+                            </button>
                         </div>
-                        <div class="bg-purple-50 p-6 rounded-lg">
-                            <div class="text-3xl font-bold text-purple-600" id="accuracyPercentage">80%</div>
-                            <div class="text-gray-600">Akurasi</div>
-                        </div>
-                    </div>
-                    <div class="space-x-4">
-                        <button onclick="restartQuiz()"
-                            class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 font-semibold">
-                            Ulangi Kuis
-                        </button>
-                        <button onclick="showSection('materi')"
-                            class="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 font-semibold">
-                            Pelajari Materi
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Eksperimen Section -->
@@ -948,26 +937,14 @@
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h3 class="text-2xl font-bold mb-4 text-purple-600">📹 Video Pembelajaran</h3>
 
-               
-    <div class="space-y-4">
-        <!-- Video 1 -->
-        <div class="bg-gray-100 p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Video 1: Konsep Dasar Gerak Melingkar</h4>
-            <div class="aspect-video rounded-lg overflow-hidden mb-3">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/5kIw1o4okog?rel=0"
-                    title="Video 1 - Konsep Dasar Gerak Melingkar" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            </div>
-            <p class="text-sm text-gray-600">Durasi: 8 menit | Topik: Definisi, contoh, dan visualisasi</p>
-        </div>
 
-
+                    <div class="space-y-4">
+                        <!-- Video 1 -->
                         <div class="bg-gray-100 p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Video 2: Rumus dan Perhitungan</h4>
+                            <h4 class="font-semibold mb-2">Video 1: Konsep Dasar Gerak Melingkar</h4>
                             <div class="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:opacity-80 transition"
-                                onclick="window.open('https://youtu.be/S8wU8xLSVNQ?si=w9JjWE4P7v1cAKW61', '_blank')"
-                                title="Klik untuk menonton video di YouTube">
+                                onclick="window.open('https://youtu.be/ZMSciW3XC20?si=aethTBTnIwWDvZzv','_blank')"
+                                title="Klik untuk menonton Video 1 di YouTube">
                                 <div class="text-center">
                                     <div
                                         class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
@@ -975,35 +952,53 @@
                                             <path d="M6.5 4.5L13.5 10L6.5 15.5V4.5Z" />
                                         </svg>
                                     </div>
-                                    <p class="text-gray-600">Tutorial Rumus dan Contoh Soal</p>
+                                    <p class="text-gray-600">Video 1: Konsep Dasar Gerak Melingkar (Klik untuk buka)</p>
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-600">Durasi: 12 menit | Topik: Rumus, perhitungan, dan contoh
-                                soal</p>
-                        </div>
 
-                        <div class="bg-gray-100 p-4 rounded-lg">
-                            <h4 class="font-semibold mb-2">Video 3: Aplikasi dalam Kehidupan</h4>
-                            <div class="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:opacity-80 transition"
-                                onclick="window.open('https://youtu.be/x9Li0Hv82OQ?si=2oohTjnoeVQSsD1F', '_blank')"
-                                title="Klik untuk menonton video di YouTube">
-                                <div class="text-center">
-                                    <div
-                                        class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-2">
-                                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M6.5 4.5L13.5 10L6.5 15.5V4.5Z" />
-                                        </svg>
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Video 2: Rumus dan Perhitungan</h4>
+                                <div class="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:opacity-80 transition"
+                                    onclick="window.open('https://youtu.be/a5ql7UzKekk?si=850qXpL5iBeZOPzE', '_blank')"
+                                    title="Klik untuk menonton video di YouTube">
+                                    <div class="text-center">
+                                        <div
+                                            class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M6.5 4.5L13.5 10L6.5 15.5V4.5Z" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-600">Tutorial Rumus dan Contoh Soal</p>
                                     </div>
-                                    <p class="text-gray-600">Aplikasi Nyata Gerak Melingkar</p>
                                 </div>
+                                <p class="text-sm text-gray-600">Durasi: 11 menit | Topik:
+                                    contoh
+                                    soal</p>
                             </div>
-                            <p class="text-sm text-gray-600">Durasi: 10 menit | Topik: Aplikasi teknologi dan industri
-                            </p>
+
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Video 3: Aplikasi dalam Kehidupan</h4>
+                                <div class="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:opacity-80 transition"
+                                    onclick="window.open('https://youtu.be/x9Li0Hv82OQ?si=2oohTjnoeVQSsD1F', '_blank')"
+                                    title="Klik untuk menonton video di YouTube">
+                                    <div class="text-center">
+                                        <div
+                                            class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M6.5 4.5L13.5 10L6.5 15.5V4.5Z" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-600">Aplikasi Nyata Gerak Melingkar</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600">Durasi: 10 menit | Topik: Aplikasi teknologi dan
+                                    industri
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Tentang Section -->
@@ -1049,20 +1044,19 @@
                     <div class="bg-white p-6 rounded-xl shadow-lg">
                         <h3 class="text-xl font-bold mb-4 text-gray-800">👨‍💻 Pengembang</h3>
                         <div class="flex items-center space-x-4 mb-4">
-                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6a19556c-3eaf-4e2b-ad82-b145fc014789.png"
+                            <img src="data:image/jpeg;base64,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"
                                 alt="Professional headshot of developer wearing formal attire with friendly smile and confident expression"
                                 class="w-20 h-20 rounded-full" />
                             <div>
                                 <h4 class="font-semibold text-lg">Nama Pengembang</h4>
-                                <p class="text-gray-600">Mahasiswa Pendidikan Fisika</p>
-                                <p class="text-gray-600">Universitas Indonesia</p>
+                                <p class="text-gray-600">Ahmad Rafie Radithya</p>
+                                <p class="text-gray-600">SMA PLUS PGRI CIBINONG</p>
                             </div>
                         </div>
 
                         <div class="space-y-2 text-sm text-gray-700">
-                            <p><strong>Email:</strong> developer@email.com</p>
-                            <p><strong>LinkedIn:</strong> linkedin.com/in/developer</p>
-                            <p><strong>GitHub:</strong> github.com/developer</p>
+                            <p><strong>Email:</strong>simsimsum99@gmail.com</p>
+                            <p><strong>GitHub:</strong>github.com/ahmadrafieradithya</p>
                         </div>
                     </div>
 
@@ -1156,7 +1150,7 @@
     </section>
 
     <script>
-        // Global variables
+       // Global variables
         let currentSection = 'home';
         let simulationRunning = false;
         let animationId;
@@ -1195,21 +1189,21 @@
         ];
 
         // Initialize
-    function startApp() {
-    const welcome = document.getElementById('welcomeScreen');
-    if (welcome) welcome.style.display = 'none';
+        function startApp() {
+            const welcome = document.getElementById('welcomeScreen');
+            if (welcome) welcome.style.display = 'none';
 
-    // Tampilkan section awal
-    if (typeof showSection === 'function') showSection('home');
+            // Tampilkan section awal
+            if (typeof showSection === 'function') showSection('home');
 
-    // Panggil inisialisasi yang hanya perlu berjalan setelah klik Mulai
-    if (typeof initializeSimulation === 'function') initializeSimulation();
-    if (typeof newGame === 'function') newGame();
+            // Panggil inisialisasi yang hanya perlu berjalan setelah klik Mulai
+            if (typeof initializeSimulation === 'function') initializeSimulation();
+            if (typeof newGame === 'function') newGame();
 
-    if (window.MathJax) {
-        MathJax.typesetPromise();
-    }
-}
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', function () {
             showSection('home');
@@ -1385,7 +1379,7 @@
                 const forceScale = 20;
                 const fx = -(x - centerX) / radius * forceScale;
                 const fy = -(y - centerY) / radius * forceScale;
-
+ 
                 ctx.beginPath();
                 ctx.moveTo(x, y);
                 ctx.lineTo(x + fx, y + fy);
@@ -1694,52 +1688,248 @@
             loadNextQuestion();
         }
 
+        // ...existing code...
+        // Main quiz data (ganti daftar soal utama)
+        // ...existing code...
+         const mainQuizData = [
+            {
+                question: "1.\nSebuah benda bergerak melingkar dengan jari-jari 0,6 m dan periode 0,4 s.\nBerapakah kecepatan linear benda tersebut?",
+                options: ["A. 3,14 m/s", "B. 4,71 m/s", "C. 9,42 m/s", "D. 2,51 m/s"],
+                correct: 2,
+                note: "v = 2πr / T = 2π·0.6 / 0.4 = 3π ≈ 9.42 m/s",
+                difficulty: "Mudah"
+            },
+            {
+                question: "2.\nSebuah kipas angin memiliki frekuensi 5 Hz. Berapakah kecepatan sudutnya?",
+                options: ["A. 10 rad/s", "B. 5π rad/s", "C. 10π rad/s", "D. 20π rad/s"],
+                correct: 2,
+                note: "ω = 2π f = 2π · 5 = 10π rad/s (≈31.42 rad/s)",
+                difficulty: "Mudah"
+            },
+            {
+                question: "3.\nBenda bergerak dengan kecepatan 12 m/s pada lintasan melingkar berjari-jari 3 m.\nBerapakah percepatan sentripetal benda?",
+                options: ["A. 36 m/s²", "B. 48 m/s²", "C. 12 m/s²", "D. 24 m/s²"],
+                correct: 1,
+                note: "a_c = v² / r = 12² / 3 = 144 / 3 = 48 m/s²",
+                difficulty: "Sedang"
+            },
+            {
+                question: "4.\nSebuah benda bermassa 4 kg bergerak dengan kecepatan 10 m/s pada lintasan berjari-jari 5 m.\nGaya sentripetal yang bekerja pada benda adalah…",
+                options: ["A. 20 N", "B. 40 N", "C. 80 N", "D. 100 N"],
+                correct: 2,
+                note: "F_s = m v² / r = 4·100 / 5 = 400 / 5 = 80 N",
+                difficulty: "Sedang"
+            },
+            {
+                question: "5.\nSebuah benda memiliki kecepatan sudut 15 rad/s dan radius 0,2 m. Hitung kecepatan linearnya.",
+                options: ["A. 2 m/s", "B. 3 m/s", "C. 3.0 m/s", "D. 4 m/s"],
+                correct: 1,
+                note: "v = ω r = 15 · 0.2 = 3 m/s",
+                difficulty: "Sedang"
+            },
+            {
+                question: "6.\nKecepatan sudut suatu benda berubah dari 4 rad/s menjadi 10 rad/s dalam 3 detik. Hitung percepatan sudutnya.",
+                options: ["A. 3 rad/s²", "B. 2 rad/s²", "C. 1 rad/s²", "D. 6 rad/s²"],
+                correct: 1,
+                note: "α = (ω₂ − ω₁) / t = (10 − 4) / 3 = 2 rad/s²",
+                difficulty: "Mudah"
+            },
+            {
+                question: "7.\nJika percepatan sudut suatu roda adalah 5 rad/s² dan jari-jarinya 0,4 m, maka percepatan tangensialnya adalah…",
+                options: ["A. 1 m/s²", "B. 2 m/s²", "C. 0,5 m/s²", "D. 4 m/s²"],
+                correct: 1,
+                note: "a_t = α · r = 5 · 0.4 = 2 m/s²",
+                difficulty: "Sedang"
+            },
+            {
+                question: "8.\nSebuah benda memiliki kecepatan awal 3 rad/s dan percepatan sudut 1 rad/s². Berapakah sudut yang ditempuh selama 5 detik?",
+                options: ["A. 20 rad", "B. 27.5 rad", "C. 12.5 rad", "D. 17.5 rad"],
+                correct: 1,
+                note: "θ = ω₀ t + ½ α t² = 3·5 + 0.5·1·5² = 15 + 12.5 = 27.5 rad",
+                difficulty: "Sedang"
+            },
+            {
+                question: "9.\nSuatu benda memiliki percepatan sentripetal 16 m/s² dan percepatan tangensial 12 m/s². Berapakah percepatan totalnya?",
+                options: ["A. 20 m/s²", "B. 25 m/s²", "C. 28 m/s²", "D. 16 m/s²"],
+                correct: 0,
+                note: "a_total = √(a_s² + a_t²) = √(16² + 12²) = √400 = 20 m/s²",
+                difficulty: "Sulit"
+            },
+            {
+                question: "10.\nBenda berputar dengan kecepatan sudut awal 6 rad/s dan percepatan sudut 2 rad/s². Jika sudut yang ditempuh 30 rad, berapa kecepatan sudut akhirnya?",
+                options: ["A. 10 rad/s", "B. 12 rad/s", "C. 14 rad/s", "D. 20 rad/s"],
+                correct: 1,
+                note: "ω² = ω₀² + 2 α θ ⇒ ω = √(6² + 2·2·30) = √156 ≈ 12.49 ≈ 12 rad/s",
+                difficulty: "Sulit"
+            }
+        ];
+        // ...existing code...
+
+        // Tambahkan array rumus & langkah sebelum loadNextQuestion
+        const mainFormulas = [
+            "\\[v = \\frac{2\\pi r}{T}\\]",                          // Soal 1
+            "\\[\\omega = 2\\pi f\\]",                               // Soal 2
+            "\\[a_s = \\frac{v^2}{r}\\]",                            // Soal 3
+            "\\[F_s = \\frac{m v^2}{r}\\]",                          // Soal 4
+            "\\[v = \\omega r\\]",                                   // Soal 5
+            "\\[\\alpha = \\frac{\\Delta\\omega}{\\Delta t}\\]",     // Soal 6
+            "\\[a_t = \\alpha r\\]",                                 // Soal 7
+            "\\[\\theta = \\omega_0 t + \\tfrac{1}{2}\\alpha t^2\\]",// Soal 8
+            "\\[a_{\\text{total}} = \\sqrt{a_s^2 + a_t^2}\\]",       // Soal 9
+            "\\[\\omega_t^2 = \\omega_0^2 + 2\\alpha\\theta\\]"      // Soal 10
+        ];
+
+        const mainFormulaSteps = [
+            "v = 2πr / T → v = 2π·0.6 / 0.4 = 3π ≈ 9.42 m/s.",
+            "ω = 2π f → ω = 2π·5 = 10π ≈ 31.42 rad/s.",
+            "a_s = v² / r → a_s = 12² / 3 = 144 / 3 = 48 m/s².",
+            "F_s = m v² / r → F_s = 4·10² / 5 = 400 / 5 = 80 N.",
+            "v = ω r → v = 15 · 0.2 = 3 m/s.",
+            "α = Δω / Δt → α = (10 − 4) / 3 = 2 rad/s².",
+            "a_t = α r → a_t = 5 · 0.4 = 2 m/s².",
+            "θ = ω₀ t + ½ α t² → θ = 3·5 + 0.5·1·5² = 15 + 12.5 = 27.5 rad.",
+            "a_total = √(a_s² + a_t²) → √(16² + 12²) = √400 = 20 m/s².",
+            "ω_t² = ω₀² + 2αθ → ω = √(6² + 2·2·30) = √156 ≈ 12.49 rad/s."
+        ];
+
+
+        // Replace loadNextQuestion()
         function loadNextQuestion() {
-            // Simplified - just show a generic next question
-            const questions = [
-                "Sebuah roda dengan jari-jari 40 cm berputar 150 rpm. Berapakah kecepatan linear pada tepi roda?",
-                "Jika periode gerak melingkar suatu benda adalah 4 sekon, berapakah frekuensinya?",
-                "Percepatan sentripetal bergantung pada...",
-                // Add more questions as needed
-            ];
+            if (!mainQuizData || mainQuizData.length === 0) return;
+            const totalEl = document.getElementById('totalQuestions');
+            if (totalEl) totalEl.textContent = mainQuizData.length;
 
-            if (currentMainQuestion < questions.length) {
-                document.getElementById('mainQuizQuestion').textContent = questions[currentMainQuestion];
+            if (currentMainQuestion < mainQuizData.length) {
+                const q = mainQuizData[currentMainQuestion];
+                const qEl = document.getElementById('mainQuizQuestion');
+                if (qEl) qEl.textContent = q.question;
+
+                // set options text
+                const options = document.querySelectorAll('.main-quiz-option');
+                options.forEach((opt, i) => {
+                    if (q.options[i]) opt.textContent = q.options[i];
+                });
+
+                // update difficulty and question counter
+                const diffEl = document.getElementById('difficultyLevel');
+                if (diffEl) diffEl.textContent = q.difficulty || '';
+                const curEl = document.getElementById('currentQuestionNum');
+                if (curEl) curEl.textContent = (currentMainQuestion + 1).toString();
+
+                // hide/clear formula explanation for new question
+                const formulaExplanation = document.getElementById('formulaExplanation');
+                const formulaContent = document.getElementById('formulaContent');
+                const formulaSteps = document.getElementById('formulaSteps');
+                if (formulaExplanation) {
+                    formulaExplanation.classList.add('hidden');
+                    if (formulaContent) formulaContent.textContent = '';
+                    if (formulaSteps) formulaSteps.textContent = '';
+                }
+            } else {
+                showQuizResults();
             }
         }
 
-        function showQuizResults() {
-            document.getElementById('quizContainer').classList.add('hidden');
-            document.getElementById('quizResults').classList.remove('hidden');
+        // ...existing code...
+        function renderFormulaForQuestion(index) {
+            const formulaEl = document.getElementById('formulaContent');
+            const stepsEl = document.getElementById('formulaSteps');
+            const formulaBox = document.getElementById('formulaExplanation');
+            if (!formulaEl || !stepsEl || !formulaBox) return;
 
-            // Update results
-            document.getElementById('finalScore').textContent = mainQuizScore;
-            document.getElementById('correctAnswers').textContent = correctAnswers;
-            document.getElementById('accuracyPercentage').textContent = Math.round((correctAnswers / 10) * 100) + '%';
+            // pastikan array tersedia dan index valid
+            const total = Array.isArray(mainFormulas) ? mainFormulas.length : 0;
+            const idx = (typeof index === 'number' && total > 0) ? Math.max(0, Math.min(index, total - 1)) : 0;
 
-            // Stop timer
-            if (quizTimer) {
-                clearInterval(quizTimer);
+            const formulaText = mainFormulas[idx] || '—';
+            const stepsText = mainFormulaSteps[idx] || '';
+
+            // tampilkan rumus (teks LaTeX) dan langkah
+            formulaEl.textContent = formulaText;
+            stepsEl.innerHTML = stepsText;
+            formulaBox.classList.remove('hidden');
+
+            // render MathJax jika tersedia
+            if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+                MathJax.typesetPromise([formulaEl]).catch(() => { });
             }
         }
+        // ...existing code...
 
+        // Replace submitMainQuiz()
+        function submitMainQuiz() {
+            const feedback = document.getElementById('mainQuizFeedback');
+            const feedbackText = document.getElementById('mainFeedbackText');
+            const explanationText = document.getElementById('mainExplanationText');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+
+            feedback.classList.remove('hidden');
+
+            const q = mainQuizData[currentMainQuestion];
+            const correctIndex = q ? q.correct : 0;
+
+            if (selectedMainAnswer === correctIndex) {
+                feedback.className = 'mt-6 p-4 rounded-lg bg-green-100 border border-green-300';
+                feedbackIcon.className = 'flex-shrink-0 w-6 h-6 rounded-full bg-green-500';
+                feedbackIcon.innerHTML = '✓';
+                feedbackText.textContent = '🎉 Jawaban Benar!';
+                feedbackText.className = 'font-semibold mb-2 text-green-700';
+                explanationText.textContent = q.note || 'Perhitungan benar.';
+                mainQuizScore += 10;
+                correctAnswers++;
+            } else {
+                feedback.className = 'mt-6 p-4 rounded-lg bg-red-100 border border-red-300';
+                feedbackIcon.className = 'flex-shrink-0 w-6 h-6 rounded-full bg-red-500';
+                feedbackIcon.innerHTML = '✗';
+                feedbackText.textContent = '❌ Jawaban Kurang Tepat';
+                feedbackText.className = 'font-semibold mb-2 text-red-700';
+                explanationText.textContent = 'Jawaban yang benar adalah ' + q.options[q.correct] + '. Lihat rumus dan langkah di bawah.';
+            }
+
+            // show formula & steps for current question
+            renderFormulaForQuestion(currentMainQuestion);
+
+            document.getElementById('currentScore').textContent = mainQuizScore;
+            document.getElementById('nextMainQuestion').classList.remove('hidden');
+            document.getElementById('submitMainQuiz').disabled = true;
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+        // ...existing code...
+        // Update startQuiz() to load first question and set totals
+        function startQuiz() {
+            document.getElementById('startQuizScreen').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            timeLeft = 300;
+            startQuizTimer();
+
+            // reset indices and UI
+            currentMainQuestion = 0;
+            mainQuizScore = 0;
+            correctAnswers = 0;
+            document.getElementById('currentScore').textContent = '0';
+            document.getElementById('progressBar').style.width = '10%';
+            loadNextQuestion();
+        }
+
+        // Update restartQuiz() to reset and load first question
         function restartQuiz() {
-            // Reset quiz state
             currentMainQuestion = 0;
             mainQuizScore = 0;
             correctAnswers = 0;
             timeLeft = 300;
 
-            // Reset UI
             document.getElementById('quizContainer').classList.remove('hidden');
             document.getElementById('quizResults').classList.add('hidden');
             document.getElementById('progressBar').style.width = '10%';
             document.getElementById('currentQuestionNum').textContent = '1';
             document.getElementById('currentScore').textContent = '0';
 
-            // Start timer
+            // restart timer and load first question
+            if (quizTimer) clearInterval(quizTimer);
             startQuizTimer();
+            loadNextQuestion();
         }
+        // ...existing code...
 
         function startQuizTimer() {
             quizTimer = setInterval(() => {
@@ -1755,16 +1945,6 @@
                 }
             }, 1000);
         }
-
-        function startQuiz() {
-    // Sembunyikan tombol mulai
-    document.getElementById('startQuizScreen').style.display = 'none';
-    // Tampilkan konten kuis
-    document.getElementById('quizContainer').style.display = 'block';
-    // Reset timer dan mulai
-    timeLeft = 300;
-    startQuizTimer();
-}
 
         // Start quiz timer when page loads
         // document.addEventListener('DOMContentLoaded', function () {
